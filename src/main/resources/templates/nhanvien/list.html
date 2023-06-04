@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+    <h1 th:text="${nhanvien}"></h1>
+    <table class="table">
+        <tr>
+            <th>Ten</th>
+            <th>Gioi Tinh</th>
+            <th>Noi Sinh</th>
+            <th>Luong</th>
+            <th>Phong ban</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="nhanvien : ${NHANVIEN}">
+            <td th:text="${NHANVIEN.TEN_NV}"></td>
+            <td th:text="${NHANVIEN.Gioi_tinh}"></td>
+            <td th:text="${NHANVIEN.Noi_sinh}"></td>
+            <td th:text="${NHANVIEN.Luong}"></td>
+            <td th:text="${NHANVIEN.phongBan.name}"></td>
+            <td>
+                <a th:href="@{/NHANVIEN/edit/{id}(id=${NHANVIEN.id})}">Edit</a>
+                <a th:href="@{/NHANVIEN/delete/{id}(id=${NHANVIEN.id})}"
+                   onclick="return confirm('Are you sure')">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>

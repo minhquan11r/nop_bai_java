@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm nhân viên</title>
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<div th:replace="layout :: header"></div>
+<div class="container">
+    <h1>Thêm nhân viên</h1>
+    <form th:action="@{/nhanvien/add}" th:object="${nhanVien}" method="post">
+        <div class="col-6 mb-3">
+            <label for="name">Tên:</label>
+            <input type="text" class="form-control" id="name" th:field="*{TEN_NV}" required>
+            <div th:if="${#fields.hasErrors('TEN_NV')}" th:errors="*{TEN_NV}"></div>
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="salary">Lương:</label>
+            <input class="form-control" type="text" th:field="*{luong}" id="salary">
+            <span class="text-danger" th:if="${#fields.hasErrors('luong')}" th:errors="*{luong}"></span>
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="Gioi_tinh">Giới tính:</label>
+            <select class="form-select" id="Gioi_tinh" th:field="*{gioiTinh}">
+                <option value="">--Chọn giới tính--</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+            </select>
+            <span class="text-danger" th:if="${#fields.hasErrors('gioiTinh')}" th:errors="*{gioiTinh}"></span>
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="Ma_Phong">Phòng ban:</label>
+            <select class="form-control" id="Ma_Phong" name="phongBan.Ma_Phong">
+                <option value="">--Chọn phòng ban--</option>
+                <option th:each="phongBan : ${listPhongBan}" th:value="${phongBan.Ma_Phong}" th:text="${phongBan.tenPhong}"></option>
+            </select>
+            <span class="text-danger" th:if="${#fields.hasErrors('phongBan.Ma_Phong')}" th:errors="*{phongBan.Ma_Phong}"></span>
+        </div>
+        <div class="col-12 mt-3">
+            <button type="submit" class="btn btn-primary me-3">Lưu</button>
+            <a class="btn btn-secondary" th:href="@{/nhanvien/list}">Hủy</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
